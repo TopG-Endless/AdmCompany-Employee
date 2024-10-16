@@ -72,19 +72,13 @@ app.UseHttpsRedirection();
             return Results.Ok(Company);
         });
 
-        //Get: Pick up Companies by Id
+        //GetById: Pick up Companies by Id
         app.MapGet("/Company/{Id}", (int Id) =>
         {
             var company = Company.FirstOrDefault(p => p.Id == Id);
             return company != null ? Results.Ok(company) : Results.NotFound();
         });
-
-        // newCompany.Id = companies.Max(c => c.Id) + 1; // Simular auto-incremento de ID
-        //     newCompany.Employees = new List<Employee>();
-        //     companies.Add(newCompany);
-        //     return CreatedAtAction(nameof(GetCompany), new { id = newCompany.Id }, newCompany);
-
-        //Post: Create a new company
+        //Post: Create a new Company
         app.MapPost("/Company", (Company newCompany) =>
         {
             newCompany.Id = Company.Max(p => p.Id) +1;
@@ -106,12 +100,57 @@ app.UseHttpsRedirection();
             return Results.NoContent();
         });
 
+        //Delete: Delete company by id
+        app.MapDelete("/Company/{Id}", (int Id) =>
+        {
+            var company = Company.FirstOrDefault(c => c.Id == Id);
+            if (company is null) return Results.NotFound();
+
+            var hasEmployees = Employee.Any(e => e.CompanyId == Id);
+            if (hasEmployees)
+            return Results.BadRequest("Cannot delete company because it has assigned employees.");
+
+            Company.Remove(company);
+            return Results.NoContent();
+        });
+
+
         //Get: Pick up all Employees
         
         app.MapGet("/Employee", () => 
         {
             return Results.Ok(Employee);
         });
+
+        //GetById: Pick up Employee by id
+        app.MapGet("/Employee/{Id}", (int Id) =>
+        {
+            var employee = Employee.FirstOrDefault(p => p.Id == Id);
+            return Employee != null ? Results.Ok(employee) : Results.NotFound();
+        });
+
+        //Post: Create a new Employee
+        app.MapPost("/Employee", (Company newEmployee) =>
+        {
+            newEmployee.Id = Company.Max(p => p.Id) +1;
+            Company.Add(newEmployee);
+            return Results.Created($"/Employee/{newEmployee.Id}", newEmployee);
+        });
+
+        //Put: Update Employee
+          app.MapPut("/Employee/{Id}", (int Id, Employee updatedEmployee) =>
+        {
+            var employee = Employee.FirstOrDefault(p => p.Id == Id);
+            if (employee == null)
+            {
+                return Results.NotFound();
+            }
+
+            employee.Name = updatedEmployee.Name;
+
+            return Results.NoContent();
+        });
+
 
 
 app.Run();

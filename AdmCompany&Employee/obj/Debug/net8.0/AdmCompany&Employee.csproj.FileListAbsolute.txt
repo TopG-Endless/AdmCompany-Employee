@@ -31,3 +31,4 @@
 /Users/yirkyfernandezlizardo/Documents/Alterna Academy/Modulo 8/AdmCompany&Employee/AdmCompany&Employee/obj/Debug/net8.0/AdmCompany&Employee.pdb
 /Users/yirkyfernandezlizardo/Documents/Alterna Academy/Modulo 8/AdmCompany&Employee/AdmCompany&Employee/obj/Debug/net8.0/AdmCompany&Employee.genruntimeconfig.cache
 /Users/yirkyfernandezlizardo/Documents/Alterna Academy/Modulo 8/AdmCompany&Employee/AdmCompany&Employee/obj/Debug/net8.0/ref/AdmCompany&Employee.dll
+/Users/yirkyfernandezlizardo/Documents/Alterna Academy/Modulo 8/AdmCompany&Employee/AdmCompany&Employee/obj/Debug/net8.0/AdmCompany&Employee.sourcelink.json
