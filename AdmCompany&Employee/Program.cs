@@ -106,7 +106,12 @@ app.UseHttpsRedirection();
             return Results.NoContent();
         });
 
-        //Get: 
+        //Get: Pick up all Employees
+        
+        app.MapGet("/Employee", () => 
+        {
+            return Results.Ok(Employee);
+        });
 
 
 app.Run();
