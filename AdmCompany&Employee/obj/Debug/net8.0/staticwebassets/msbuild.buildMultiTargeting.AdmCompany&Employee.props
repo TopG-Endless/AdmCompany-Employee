@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/AdmCompany&amp;Employee.props" />
+</Project>
