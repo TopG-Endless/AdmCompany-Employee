@@ -151,6 +151,28 @@ app.UseHttpsRedirection();
             return Results.NoContent();
         });
 
+        //DeletebyID: Delete employee by id
+        app.MapDelete("/Employee/{Id}", (int Id) =>
+        {
+            var employee = Employee.FirstOrDefault(e => e.Id == Id);
+            if (employee is null) return Results.NotFound();
+
+            Employee.Remove(employee);
+            return Results.NoContent();
+        });
+
+        //DeleteAll: Delete company with employees
+        app.MapDelete("/Company/{id}/with-Employee", (int Id) =>
+        {
+            var company = Company.FirstOrDefault(c => c.Id == Id);
+            if (company is null) return Results.NotFound();
+
+            Employee.RemoveAll(e => e.CompanyId == Id);
+            Company.Remove(company);
+
+            return Results.NoContent();
+        });
+
 
 
 app.Run();
@@ -162,7 +184,6 @@ public class Company
     public int Id { get; set; }
     public required string Name  { get; set; }
     
-    //public ICollection<Employee> Employees { get; set; } = new List<Employee>();
 }
 
 
